@@ -1,4 +1,6 @@
 import model.*;
+import utility.JsonFileIO;
+
 import java.util.*;
 
 // A simple "To Do" app
@@ -11,7 +13,12 @@ public class ConsoleToDoApp {
     public static void main(String[] args) {
         input = new Scanner(System.in);
         todo = new ArrayList<>();
-        
+
+        List<Task> addedTasks = JsonFileIO.read();
+        for (Task t : addedTasks) {
+            todo.add(t);
+        }
+
         printLogo();
         while (!exit) {
             displayToDos();
@@ -47,7 +54,12 @@ public class ConsoleToDoApp {
     private static void addNewTask() {
         if (getDescriptionForTask()) {
             todo.add(new Task(userInput));
+            JsonFileIO.write(todo);
         }
+//        List<Task> newTask = new ArrayList<>();
+//        newTask.add(new Task(userInput));
+//
+//        JsonFileIO.write(newTask);
     }
     
     private static boolean getDescriptionForTask() {
