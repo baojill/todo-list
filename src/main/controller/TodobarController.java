@@ -13,11 +13,15 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import model.Task;
+import ui.ListView;
+import ui.PomoTodoApp;
+import utility.JsonFileIO;
 import utility.Logger;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 // Controller class for Todobar UI
@@ -39,6 +43,7 @@ public class TodobarController implements Initializable {
     private StackPane todoOptionsPopUpBurger;
     
     private Task task;
+
     private JFXPopup optionsPopUp;
     private JFXPopup actionsPopUp;
     
@@ -120,16 +125,22 @@ public class TodobarController implements Initializable {
                     Logger.log("TodoOptionsPopUpController", "1No action is implemented for the selected option");
                     break;
                 case 1:
-                    Logger.log("TodoOptionsPopUpController", "Delete is not implemented");
-                    break;
-                case 2:
-                    Logger.log("TodoOptionsPopUpController", "3No action is implemented for the selected option");
+                    Logger.log("TodoOptionsPopUpController", "Task has been deleted");
+                    List<Task> tasks = JsonFileIO.read();
+                    tasks.remove(task);
+                    JsonFileIO.write(tasks);
                     break;
                 default:
                     Logger.log("TodoOptionsPopUpController", "4No action is implemented for the selected option");
             }
+            returnToListView();
             optionsPopUp.hide();
         }
+    }
+
+    private void returnToListView() {
+        Logger.log("TodoOptionsPopUpController", "Return to the list view UI.");
+        PomoTodoApp.setScene(new ListView(PomoTodoApp.getTasks()));
     }
 
     // Inner class: option pop up controller

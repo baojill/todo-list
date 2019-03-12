@@ -36,6 +36,7 @@ public class PomoTodoApp extends Application {
     
     // EFFECTS: returns the list of tasks in this PomoTODO APP
     public static List<Task> getTasks() {
+        tasks = JsonFileIO.read();
         JsonFileIO.write(tasks);
         return tasks;
     }
