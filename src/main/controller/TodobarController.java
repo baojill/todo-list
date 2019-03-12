@@ -110,23 +110,23 @@ public class TodobarController implements Initializable {
     // Inner class: view selector pop up controller
     class TodoOptionsPopUpController {
         @FXML
-        private JFXListView<?> viewPopUpList;
+        private JFXListView<?> optionPopUpList;
 
         @FXML
         private void submit() {
-            int selectedIndex = viewPopUpList.getSelectionModel().getSelectedIndex();
+            int selectedIndex = optionPopUpList.getSelectionModel().getSelectedIndex();
             switch (selectedIndex) {
                 case 0:
-                    Logger.log("TodoOptionsPopUpController", "List View Selected");
+                    Logger.log("TodoOptionsPopUpController", "1No action is implemented for the selected option");
                     break;
                 case 1:
-                    Logger.log("TodoOptionsPopUpController", "Priority View is not supported in this version!");
+                    Logger.log("TodoOptionsPopUpController", "Delete is not implemented");
                     break;
                 case 2:
-                    Logger.log("TodoOptionsPopUpController", "Status View is not supported in this version!");
+                    Logger.log("TodoOptionsPopUpController", "3No action is implemented for the selected option");
                     break;
                 default:
-                    Logger.log("TodoOptionsPopUpController", "No action is implemented for the selected option");
+                    Logger.log("TodoOptionsPopUpController", "4No action is implemented for the selected option");
             }
             optionsPopUp.hide();
         }
@@ -135,21 +135,21 @@ public class TodobarController implements Initializable {
     // Inner class: option pop up controller
     class TodoActionsPopUpController {
         @FXML
-        private JFXListView<?> toolbarPopUpList;
+        private JFXListView<?> actionPopUpList;
 
         @FXML
         private void submit() {
-            int selectedIndex = toolbarPopUpList.getSelectionModel().getSelectedIndex();
+            int selectedIndex = actionPopUpList.getSelectionModel().getSelectedIndex();
             switch (selectedIndex) {
                 case 0:
-                    Logger.log("TodoActionsPopUpController", "Setting is not supported in this version");
+                    Logger.log("TodoActionsPopUpController", "5No action is implemented for the selected option");
                     break;
                 case 1:
-                    Logger.log("TodoActionsPopUpController", "Close application");
-                    Platform.exit();
+                    Logger.log("TodoActionsPopUpController", "6No action is implemented for the selected option");
+//                    Platform.exit();
                     break;
                 default:
-                    Logger.log("TodoActionsPopUpController", "No action is implemented for the selected option");
+                    Logger.log("TodoActionsPopUpController", "7No action is implemented for the selected option");
             }
             actionsPopUp.hide();
         }
