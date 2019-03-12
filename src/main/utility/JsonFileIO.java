@@ -23,7 +23,7 @@ public class JsonFileIO {
             content = new String(Files.readAllBytes(Paths.get(jsonDataFile.getPath())));
             return taskParser.parse(content);
         } catch (IOException e) {
-            e.printStackTrace();
+            //expected behaviour
         }
         return taskParser.parse(content);
     }

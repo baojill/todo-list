@@ -15,7 +15,7 @@ public class PomoTodoApp extends Application {
     public static final String TITLE = "PomoTODO";
     public static final double WIDTH = 520;
     public static final double HEIGHT = 800;
-    private static List<Task> tasks = new ArrayList<>();
+    private static List<Task> tasks = JsonFileIO.read();
     private static Stage primaryStage;
     
     public static void main(String[] args) {
@@ -36,6 +36,7 @@ public class PomoTodoApp extends Application {
     
     // EFFECTS: returns the list of tasks in this PomoTODO APP
     public static List<Task> getTasks() {
+        JsonFileIO.write(tasks);
         return tasks;
     }
     

@@ -4,6 +4,7 @@ import controller.TodobarController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 import model.Task;
+import utility.JsonFileIO;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,12 +14,12 @@ public class Todobar extends VBox {
     private static final String FXML = "resources/fxml/Todobar.fxml";
     private File fxmlFile = new File(FXML);
     private Task task;
-    
+
     public Todobar(Task task) {
         this.task = task;
         load();
     }
-    
+
     private void load() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(fxmlFile.toURI().toURL());
