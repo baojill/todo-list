@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import model.Task;
+import ui.EditTask;
 import ui.ListView;
 import ui.PomoTodoApp;
 import utility.JsonFileIO;
@@ -30,6 +31,7 @@ public class TodobarController implements Initializable {
     private static final String todoActionsPopUpFXML = "resources/fxml/TodoActionsPopUp.fxml";
     private File todoOptionsFile = new File(todoOptionsPopUpFXML);
     private File todoActionsFile = new File(todoActionsPopUpFXML);
+
 
     @FXML
     private Label descriptionLabel;
@@ -120,23 +122,31 @@ public class TodobarController implements Initializable {
         @FXML
         private void submit() {
             int selectedIndex = optionPopUpList.getSelectionModel().getSelectedIndex();
+//            List<Task> tasks = JsonFileIO.read();
             switch (selectedIndex) {
                 case 0:
-                    Logger.log("TodoOptionsPopUpController", "1No action is implemented for the selected option");
+                    Logger.log("TodoOptionsPopUpController", "No action is implemented for the Edit option");
+//                    closeNodeList();
+                    PomoTodoApp.setScene(new EditTask(task));
+//                    tasks.set(tasks.indexOf(task), task);
+//                    JsonFileIO.write(tasks);
                     break;
                 case 1:
                     Logger.log("TodoOptionsPopUpController", "Task has been deleted");
-                    List<Task> tasks = JsonFileIO.read();
-                    tasks.remove(task);
-                    JsonFileIO.write(tasks);
+                    PomoTodoApp.getTasks().remove(task);
+                    JsonFileIO.write(PomoTodoApp.getTasks());
+                    returnToListView();
                     break;
                 default:
                     Logger.log("TodoOptionsPopUpController", "4No action is implemented for the selected option");
             }
-            returnToListView();
             optionsPopUp.hide();
         }
     }
+
+//    private void closeNodeList() {
+//        nodesList.animateList(false);
+//    }
 
     private void returnToListView() {
         Logger.log("TodoOptionsPopUpController", "Return to the list view UI.");
