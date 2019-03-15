@@ -138,7 +138,7 @@ public class TodobarController implements Initializable {
                     returnToListView();
                     break;
                 default:
-                    Logger.log("TodoOptionsPopUpController", "4No action is implemented for the selected option");
+                    Logger.log("TodoOptionsPopUpController", "No action is implemented for the selected option");
             }
             optionsPopUp.hide();
         }
@@ -163,14 +163,14 @@ public class TodobarController implements Initializable {
             int selectedIndex = actionPopUpList.getSelectionModel().getSelectedIndex();
             switch (selectedIndex) {
                 case 0:
-                    Logger.log("TodoActionsPopUpController", "5No action is implemented for the selected option");
+                    Logger.log("TodoActionsPopUpController", "No action is implemented for the selected option");
                     break;
                 case 1:
-                    Logger.log("TodoActionsPopUpController", "6No action is implemented for the selected option");
+                    Logger.log("TodoActionsPopUpController", "No action is implemented for the selected option");
 //                    Platform.exit();
                     break;
                 default:
-                    Logger.log("TodoActionsPopUpController", "7No action is implemented for the selected option");
+                    Logger.log("TodoActionsPopUpController", "No action is implemented for the selected option");
             }
             actionsPopUp.hide();
         }
