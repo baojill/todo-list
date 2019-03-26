@@ -3,14 +3,11 @@ package model;
 import model.exceptions.EmptyStringException;
 import model.exceptions.NullArgumentException;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 // Represents a Project, a collection of zero or more Tasks
 // Class Invariant: no duplicated task; order of tasks is preserved
-public class Project extends Todo {
+public class Project extends Todo implements Iterable<Todo> {
     private String description;
     private List<Todo> tasks;
     
@@ -131,5 +128,92 @@ public class Project extends Todo {
     @Override
     public int hashCode() {
         return Objects.hash(description);
+    }
+
+//    We want to make the Project class iterable so that we can write a for-each loop like this
+//
+//        for(Todo t: project) {
+//        // do something with t
+//    }
+//    When the code above is executed, we want to iterate over all the immediate children in the project
+//    (that is, over all the tasks and sub-projects contained in project but not over the children
+//    of any of those sub-projects) in a particular order:
+//
+//    first iterate over all important and urgent todos
+//    then over all important (but not urgent) todos
+//    then over all urgent (but not important) todos
+//    and finally, over all todos that are neither important nor urgent.
+//    If more than one task/sub-project has the same priority,
+//    your iterator must iterate over them in the order in which they were added to the project.
+
+    @Override
+    public Iterator<Todo> iterator() {
+        return new PriorityIterator();
+    }
+
+    private class PriorityIterator implements Iterator<Todo> {
+
+        private Iterator<Todo> itr;
+        private int listIndex;
+        private int priorityLevel;
+
+        public PriorityIterator() {
+            itr = tasks.iterator();
+            listIndex = 0;
+            priorityLevel = 1;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return itr.hasNext();
+        }
+
+        @Override
+        public Todo next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            Iterator<Todo> itr1 = tasks.iterator();
+            Iterator<Todo> itr2 = tasks.iterator();
+            Iterator<Todo> itr3 = tasks.iterator();
+            Iterator<Todo> itr4 = tasks.iterator();
+
+
+//            if (itr1.next().getPriority().equals(new Priority(1))) {
+//                listIndex++;
+//            } else if (itr2.next().getPriority().equals(new Priority(3))) {
+//                listIndex++;
+//            } else if (itr3.next().getPriority().equals(new Priority(2))) {
+//                listIndex++;
+//            } else if (itr4.next().getPriority().equals(new Priority(4))) {
+//                listIndex++;
+//            }
+
+            if (itr1.next().getPriority().equals(new Priority(1))) {
+                return itr1.next();
+            } else if (itr2.next().getPriority().equals(new Priority(3))) {
+                return itr2.next();
+            } else if (itr3.next().getPriority().equals(new Priority(2))) {
+                return itr3.next();
+            } else if (itr4.next().getPriority().equals(new Priority(4))) {
+                return itr4.next();
+            }
+//
+            return itr.next();
+//            return tasks.get(listIndex);
+
+        }
+
+//        public Todo priorityOne() {
+//            Iterator<Todo> main = tasks.iterator();
+//            Iterator<Todo> sub = tasks.iterator();
+//            while (main.hasNext()) {
+//                if (main.next().getPriority().equals(new Priority(priorityLevel))) {
+//                    Todo toReturn = sub.next();
+//                }
+//            }
+//            return toReturn;
+//        }
     }
 }

@@ -6,6 +6,9 @@ import org.apache.commons.lang3.builder.ToStringExclude;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestProject {
@@ -259,6 +262,37 @@ public class TestProject {
     @Test
     void testHashcodeProject() {
         System.out.println(pro.hashCode());
+    }
+
+    @Test
+    void testPriorityIterator() {
+        Task t1 = new Task("level 3");
+        t1.setPriority(new Priority(3));
+        Task t2 = new Task("level 2");
+        t2.setPriority(new Priority(2));
+        Task t3 = new Task("level 1");
+        t3.setPriority(new Priority(1));
+
+        pro.add(t1);
+        pro.add(t2);
+        pro.add(t3);
+
+        Iterator<Todo> itr = pro.iterator();
+        assertEquals(t3, itr.next());
+        assertEquals(t1, itr.next());
+        assertEquals(t2, itr.next());
+        assertFalse(itr.hasNext());
+    }
+
+    @Test
+    void testPriorityExceptionThrown() {
+        Iterator<Todo> itr = pro.iterator();
+        try {
+            itr.next();
+            fail("exception wasn't thrown");
+        } catch (NoSuchElementException e) {
+            //expected behaviour
+        }
     }
 
 }
