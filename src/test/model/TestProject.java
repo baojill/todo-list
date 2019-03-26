@@ -229,4 +229,9 @@ public class TestProject {
         assertEquals(58, pro.getProgress());
     }
 
+    @Test
+    void testHashcodeProject() {
+        System.out.println(pro.hashCode());
+    }
+
 }
