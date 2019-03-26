@@ -31,7 +31,7 @@ public class Project extends Todo {
     // EFFECTS: task is added to this project (if it was not already part of it)
     //   throws NullArgumentException when task is null
     public void add(Todo task) {
-        if (!contains(task)) {
+        if (!contains(task) && !task.equals(this)) {
             tasks.add(task);
         }
     }

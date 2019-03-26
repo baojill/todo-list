@@ -49,6 +49,12 @@ public class TestProject {
     }
 
     @Test
+    void testaddItself() {
+        pro.add(pro);
+        assertEquals(0, pro.getNumberOfTasks());
+    }
+
+    @Test
     public void testaddTask() {
         pro.add(t);
         assertTrue(pro.contains(t));
@@ -227,6 +233,27 @@ public class TestProject {
         pro.add(t3);
 
         assertEquals(58, pro.getProgress());
+    }
+
+    @Test
+    void testgetProgress7() {
+        Task t1 = new Task("task 1");
+        t1.setProgress(100);
+        Task t2 = new Task("task 2");
+        t2.setProgress(50);
+        Task t3 = new Task("task 3");
+        t3.setProgress(25);
+
+        pro.add(t1);
+        pro.add(t2);
+        pro.add(t3);
+
+        Task t4 = new Task("task 4");
+        Project pro2 = new Project("project 2");
+        pro2.add(t4);
+        pro2.add(pro);
+
+        assertEquals(29, pro2.getProgress());
     }
 
     @Test
