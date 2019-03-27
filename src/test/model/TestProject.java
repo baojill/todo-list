@@ -219,7 +219,7 @@ public class TestProject {
 
     @Test
     public void testgetProgress5() {
-        assertEquals(100, pro.getProgress());
+        assertEquals(0, pro.getProgress());
     }
 
     @Test
@@ -279,9 +279,74 @@ public class TestProject {
 
         Iterator<Todo> itr = pro.iterator();
         assertEquals(t3, itr.next());
+        assertEquals(t2, itr.next());
         assertEquals(t1, itr.next());
+        assertFalse(itr.hasNext());
+    }
+
+    @Test
+    void testPriorityIterator2() {
+        Task t1 = new Task("level 3");
+        t1.setPriority(new Priority(1));
+        Task t2 = new Task("level 2");
+        t2.setPriority(new Priority(2));
+        Task t3 = new Task("level 1");
+        t3.setPriority(new Priority(1));
+
+        pro.add(t1);
+        pro.add(t2);
+        pro.add(t3);
+
+        Iterator<Todo> itr = pro.iterator();
+        assertEquals(t1, itr.next());
+        assertEquals(t3, itr.next());
         assertEquals(t2, itr.next());
         assertFalse(itr.hasNext());
+    }
+
+    @Test
+    void testPriorityIterator3() {
+        Task t1 = new Task("level 3");
+        t1.setPriority(new Priority(3));
+        Task t2 = new Task("level 2");
+        t2.setPriority(new Priority(2));
+        Task t3 = new Task("level 1");
+        t3.setPriority(new Priority(2));
+
+        pro.add(t1);
+        pro.add(t2);
+        pro.add(t3);
+
+        Iterator<Todo> itr = pro.iterator();
+        assertEquals(t2, itr.next());
+        assertEquals(t3, itr.next());
+        assertEquals(t1, itr.next());
+        assertFalse(itr.hasNext());
+    }
+
+    @Test
+    void testisCompleted() {
+        Task t = new Task("new task");
+        t.setProgress(100);
+        pro.add(t);
+        assertTrue(pro.isCompleted());
+    }
+
+    @Test
+    void testisCompleted2() {
+        Task t = new Task("new task");
+        t.setProgress(50);
+        pro.add(t);
+        assertFalse(pro.isCompleted());
+    }
+
+    @Test
+    void testsetIntIndex() {
+        Task t = new Task("new task");
+        t.setProgress(50);
+        pro.add(t);
+        Iterator<Todo> itr = pro.iterator();
+        assertFalse(pro.isCompleted());
     }
 
     @Test

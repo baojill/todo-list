@@ -7,6 +7,8 @@ import model.exceptions.NullArgumentException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Calendar;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestTask {
@@ -167,7 +169,51 @@ public class TestTask {
 
     @Test
     void testEqualsTask() {
+        Task t = new Task("newTask");
         assertTrue(testTask.equals(new Task("newTask")));
+        assertTrue(testTask.equals(testTask));
+        t.setDueDate(new DueDate(Calendar.getInstance().getTime()));
+        assertFalse(testTask.equals(t));
+        assertFalse(testTask.equals(new Priority(1)));
+    }
+
+    @Test
+    void testEqualsTask2() {
+        Task t = new Task("newTask");
+        Task t2 = new Task("SGKNslgkn");
+        t.setPriority(new Priority(3));
+        t2.setPriority(new Priority(3));
+        assertFalse(t2.equals(t));
+    }
+
+    @Test
+    void testEqualsTask3() {
+        Task t = new Task("newTask");
+        Task t2 = new Task("newTask");
+        t.setPriority(new Priority(3));
+        t2.setPriority(new Priority(2));
+        assertFalse(t2.equals(t));
+    }
+
+    @Test
+    void testEqualsTask4() {
+        Task t = new Task("newTask");
+        Task t2 = new Task("newTask");
+        t.setStatus(Status.TODO);
+        t2.setStatus(Status.UP_NEXT);
+        assertFalse(t2.equals(t));
+    }
+
+    @Test
+    void testtagToString() {
+        testTask.addTag(new Tag("tag 1"));
+        testTask.addTag(new Tag("tag 2"));
+        testTask.toString();
+    }
+
+    @Test
+    void testparseDescription() {
+        testTask.setDescription("new task## urgent## today");
     }
 
 
@@ -223,7 +269,7 @@ public class TestTask {
         assertEquals("[\n" +
                 "{\n" +
                 "\tDescription: newTask\n" +
-                "\tDue date: Mon Mar 25 2019 11:59 PM\n" +
+                "\tDue date: Tue Mar 26 2019 11:59 PM\n" +
                 "\tStatus: TODO\n" +
                 "\tPriority: DEFAULT\n" +
                 "\tTags: #tag1\n" +
@@ -238,21 +284,22 @@ public class TestTask {
         testTask.setDueDate(dd);
         testTag.addTask(testTask);
         testTag.addTask(testTask2);
+//        System.out.println(testTag.getTasks().toString());
         assertTrue(testTag.getTasks().toString().contains(
                 "{\n" +
+                        "\tDescription: newTask\n" +
+                        "\tDue date: Tue Mar 26 2019 11:59 PM\n" +
+                        "\tStatus: TODO\n" +
+                        "\tPriority: URGENT\n" +
+                        "\tTags: #tag1\n" +
+                        "}"));
+        assertTrue(testTag.getTasks().toString().contains("{\n" +
                 "\tDescription: newTask\n" +
-                "\tDue date: Mon Mar 25 2019 11:59 PM\n" +
+                "\tDue date: Tue Mar 26 2019 11:59 PM\n" +
                 "\tStatus: TODO\n" +
                 "\tPriority: DEFAULT\n" +
                 "\tTags: #tag1\n" +
-                "},"));
-        assertTrue(testTag.getTasks().toString().contains("{\n" +
-                "\tDescription: newTask\n" +
-                "\tDue date: Mon Mar 25 2019 11:59 PM\n" +
-                "\tStatus: TODO\n" +
-                "\tPriority: URGENT\n" +
-                "\tTags: #tag1\n" +
-                "}]"));
+                "}"));
     }
 
     @Test
@@ -263,21 +310,22 @@ public class TestTask {
         testTask.setDueDate(dd);
         testTag.addTask(testTask);
         testTag.addTask(testTask2);
-        assertEquals("[\n" +
+        assertTrue(testTag.getTasks().toString().contains(
                 "{\n" +
                 "\tDescription: newTask\n" +
-                "\tDue date: Mon Mar 25 2019 11:59 PM\n" +
+                "\tDue date: Tue Mar 26 2019 11:59 PM\n" +
                 "\tStatus: TODO\n" +
                 "\tPriority: DEFAULT\n" +
                 "\tTags: #tag1\n" +
-                "}, \n" +
+                "}"));
+        assertTrue(testTag.getTasks().toString().contains(
                 "{\n" +
-                "\tDescription: newTask\n" +
-                "\tDue date: Mon Mar 25 2019 11:59 PM\n" +
-                "\tStatus: UP NEXT\n" +
-                "\tPriority: DEFAULT\n" +
-                "\tTags: #tag1\n" +
-                "}]", testTag.getTasks().toString());
+                        "\tDescription: newTask\n" +
+                        "\tDue date: Tue Mar 26 2019 11:59 PM\n" +
+                        "\tStatus: UP NEXT\n" +
+                        "\tPriority: DEFAULT\n" +
+                        "\tTags: #tag1\n" +
+                        "}"));
     }
 
     @Test
@@ -290,7 +338,7 @@ public class TestTask {
         assertEquals("[\n" +
                 "{\n" +
                 "\tDescription: newTask\n" +
-                "\tDue date: Mon Mar 25 2019 11:59 PM\n" +
+                "\tDue date: Tue Mar 26 2019 11:59 PM\n" +
                 "\tStatus: TODO\n" +
                 "\tPriority: DEFAULT\n" +
                 "\tTags: #tag1\n" +
@@ -302,7 +350,7 @@ public class TestTask {
         assertEquals("[\n" +
                 "{\n" +
                 "\tDescription: newerTask\n" +
-                "\tDue date: Mon Mar 25 2019 11:59 PM\n" +
+                "\tDue date: Tue Mar 26 2019 11:59 PM\n" +
                 "\tStatus: TODO\n" +
                 "\tPriority: DEFAULT\n" +
                 "\tTags: #tag1\n" +

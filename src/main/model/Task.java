@@ -14,7 +14,6 @@ import java.util.*;
 public class Task extends Todo {
     public static final DueDate NO_DUE_DATE = null;
 
-    private String description;
     private Set<Tag> tags;
     private DueDate dueDate;
     private Status status;
@@ -30,7 +29,7 @@ public class Task extends Todo {
 //        if (description == null || description.length() == 0) {
 //            throw new EmptyStringException("Cannot construct a task with no description");
 //        }
-        this.description = description;
+//        this.description = description;
         tags = new HashSet<>();
         dueDate = NO_DUE_DATE;
 //        priority = new Priority(4);
