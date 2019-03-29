@@ -164,11 +164,14 @@ public class Project extends Todo implements Iterable<Todo> {
             countNext = 0;
         }
 
+        //Effects: returns true of there are elements remaining in the priority iterator
         @Override
         public boolean hasNext() {
             return (countNext < tasks.size());
         }
 
+
+        //EFFECTS: returns the next element in the priority iterator
         @Override
         public Todo next() {
             if (!hasNext()) {
@@ -193,6 +196,7 @@ public class Project extends Todo implements Iterable<Todo> {
             return todo;
         }
 
+        //EFFECTS: helper method for next()
         public void nextHelper() {
             for (intIndex = lastIndex; intIndex < tasks.size(); intIndex++) {
                 if (tasks.get(intIndex).getPriority().equals(new Priority(priorityLevel))) {
