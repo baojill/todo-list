@@ -66,6 +66,7 @@ public class TodobarController implements Initializable {
         loadTodoActionPopUpActionListener();
     }
 
+    // EFFECTS: load options pop up
     private void loadTodoOptionsPopUp() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(todoOptionsFile.toURI().toURL());
@@ -76,6 +77,7 @@ public class TodobarController implements Initializable {
         }
     }
 
+    // EFFECTS: load actions pop up
     private void loadTodoActionsPopUp() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(todoActionsFile.toURI().toURL());
@@ -144,10 +146,7 @@ public class TodobarController implements Initializable {
         }
     }
 
-//    private void closeNodeList() {
-//        nodesList.animateList(false);
-//    }
-
+    // EFFECTS: return to the list view UI
     private void returnToListView() {
         Logger.log("TodoOptionsPopUpController", "Return to the list view UI.");
         PomoTodoApp.setScene(new ListView(PomoTodoApp.getTasks()));
